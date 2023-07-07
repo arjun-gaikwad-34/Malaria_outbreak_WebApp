@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Malaria Outbreak Prediction</title>
+    <style>
+      body {
+        background-image: "doctor.jpg";
+        background-size: cover;
+        font-family: Arial, sans-serif;
+        text-align: center;
+        padding-top: 150px;
+      }
+
+      h1 {
+        color: white;
+      }
+
+      form {
+        display: inline-block;
+        margin-top: 50px;
+      }
+
+      input[type="text"],
+      input[type="number"] {
+        padding: 10px;
+        margin-bottom: 10px;
+      }
+
+      input[type="submit"] {
+        padding: 10px 20px;
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        cursor: pointer;
+      }
+
+      .result {
+        color: rgb(5, 0, 0);
+        margin-top: 50px;
+      }
+    </style>
+  </head>
+  <script>
+    <!--  Assuming you have the 'pred' variable that contains the prediction result-->
+    var pred = "{{pred}}";
+    console.log("The value of pred is:" + pred);
+
+    var resultDiv = document.getElementById("prediction-result");
+
+    if (pred == "Yes") {
+      resultDiv.innerText = "Malaria outbreak prediction: Yes";
+    } else {
+      resultDiv.innerText = "Malaria outbreak prediction: No";
+    }
+  </script>
+  <body>
+    <h1>Malaria Outbreak Prediction</h1>
+    <form id="prediction-form" action="/predict" method="post">
+      <label for="city">City:</label>
+      <input type="text" id="city" name="city" required /><br />
+      <label for="rainfall">Rainfall:</label>
+      <input type="number" id="rainfall" name="rainfall" required /><br />
+
+      <label for="positive">Positive Cases:</label>
+      <input type="number" id="positive" name="positive" required /><br />
+
+      <label for="pf">PF Value:</label>
+      <input type="number" id="pf" name="pf" required /><br />
+
+      <input type="submit" value="Submit" />
+    </form>
+
+    <h3 id="prediction-result" class="result">{{pred}}</h3>
+
+    <!--    <script>-->
+    <!--        document.getElementById("prediction-form").addEventListener("submit", function(event) {-->
+    <!--            event.preventDefault();-->
+    <!--            -->
+    <!--            // Get form values-->
+    <!--            var city = document.getElementById("city").value;-->
+    <!--            var positive = document.getElementById("positive").value;-->
+    <!--            var pf = document.getElementById("pf").value;-->
+    <!--            -->
+    <!--            // Make API call to server for prediction-->
+    <!--            fetch("/predict", {-->
+    <!--                method: "POST",-->
+    <!--                headers: {-->
+    <!--                    "Content-Type": "application/json"-->
+    <!--                },-->
+    <!--                body: JSON.stringify({ city: city, positive: positive, pf: pf })-->
+    <!--            })-->
+    <!--            .then(response => response.json())-->
+    <!--            .then(data => {-->
+    <!--                // Display prediction result-->
+    <!--                var resultDiv = document.getElementById("prediction-result");-->
+    <!--                resultDiv.innerHTML = "Malaria Outbreak Prediction: " + data.prediction;-->
+    <!--            })-->
+    <!--            .catch(error => {-->
+    <!--                console.error("Error:", error);-->
+    <!--            });-->
+    <!--        });-->
+    <!--    </script>-->
+  </body>
+</html>
